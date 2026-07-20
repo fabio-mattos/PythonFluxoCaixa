@@ -2,12 +2,13 @@
 from __future__ import annotations
 
 import os
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 
 from dotenv import load_dotenv
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(getattr(sys, "_MEIPASS", "")) if getattr(sys, "frozen", False) else Path(__file__).resolve().parent
 load_dotenv(BASE_DIR / ".env")
 
 _REQUIRED_KEYS = ("DB_DRIVER", "DB_SERVER", "DB_DATABASE", "DB_UID", "DB_PWD")

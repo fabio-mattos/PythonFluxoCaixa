@@ -1,13 +1,14 @@
 """Conexão com o SQL Server e execução da consulta de saldo FAPEU."""
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 
 import pyodbc
 
 from config import DBConfig
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(getattr(sys, "_MEIPASS", "")) if getattr(sys, "frozen", False) else Path(__file__).resolve().parent
 QUERY_PATH = BASE_DIR / "consulta.sql"
 
 COLUNAS = (

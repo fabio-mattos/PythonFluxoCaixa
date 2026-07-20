@@ -66,9 +66,10 @@ DESPESAS AS
     FROM TBLancamento L (NOLOCK)
     INNER JOIN TBLancamentoRateio LR (NOLOCK)        ON LR.IDLancamentoRateio = L.IDLancamento
     INNER JOIN TBProjeto P (NOLOCK)        ON P.IDProjeto = LR.IDProjetoRateio
-    INNER JOIN tbcategoriafinanceira tbcategoriafinanceira (NOLOCK) ON tbcategoriafinanceira.IDCategoriaFinanceira = L.IDCategoriaFinanceira 
+    LEFT OUTER JOIN tbcategoriafinanceira tbcategoriafinanceira (NOLOCK) ON tbcategoriafinanceira.IDCategoriaFinanceira = L.IDCategoriaFinanceira 
     WHERE 
-        tbcategoriafinanceira.receita = 0       
+        tbcategoriafinanceira.receita = 0   
+      AND  L.IDCategoriaFinanceira NOT IN(18,35,36)      
       AND P.CodigoProjetoCompleto IN ('112024','622024','872024','502025','1142025','142026','152026')
       AND L.Data > 0
       AND L.CreditoDebito = 2

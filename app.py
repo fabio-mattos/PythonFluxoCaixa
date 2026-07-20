@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import queue
+import sys
 import threading
 from pathlib import Path
 
@@ -12,7 +13,7 @@ from config import load_db_config
 from database import buscar_saldo_fapeu
 from excel_writer import atualizar_planilha
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(sys.executable).resolve().parent if getattr(sys, "frozen", False) else Path(__file__).resolve().parent
 PLANILHA_PATH = BASE_DIR / "FLUXO DE CAIXA_labtrans_13_07.xlsx"
 
 ctk.set_appearance_mode("system")
