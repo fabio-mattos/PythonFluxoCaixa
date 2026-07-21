@@ -11,10 +11,10 @@ from tkinter import messagebox
 
 from config import load_db_config
 from database import buscar_saldo_fapeu
-from excel_writer import atualizar_planilha
+from excel_writer import AvisoPlanilha, atualizar_planilha
 
 BASE_DIR = Path(sys.executable).resolve().parent if getattr(sys, "frozen", False) else Path(__file__).resolve().parent
-PLANILHA_PATH = BASE_DIR / "FLUXO DE CAIXA_labtrans_13_07.xlsx"
+PLANILHA_PATH = BASE_DIR / "FLUXO DE CAIXA_LABTRANS.XLSX"
 
 ctk.set_appearance_mode("system")
 ctk.set_default_color_theme("blue")
@@ -97,6 +97,8 @@ class App(ctk.CTk):
             linhas = buscar_saldo_fapeu(config)
             atualizar_planilha(PLANILHA_PATH, linhas)
             self._resultado.put(("sucesso", len(linhas)))
+        except AvisoPlanilha as exc:
+            self._resultado.put(("aviso", str(exc)))
         except Exception as exc:  # captura para exibir na UI, não deixar a thread matar o app
             self._resultado.put(("erro", str(exc)))
 
@@ -119,8 +121,11 @@ class App(ctk.CTk):
             )
             messagebox.showinfo(
                 "Concluído",
-                f"Planilha atualizada com sucesso!\n{dado} projeto(s) gravado(s) na aba saldoFAPEU.",
+                f"Planilha atualizada com sucesso!\n{dado} projeto(s) gravado(s) na aba saldo fapeu.",
             )
+        elif status == "aviso":
+            self.status_label.configure(text="Aviso", text_color="#B36B00")
+            messagebox.showwarning("Aviso", dado)
         else:
             self.status_label.configure(text="Falha na atualização", text_color="#B3261E")
             messagebox.showerror("Erro ao atualizar", dado)

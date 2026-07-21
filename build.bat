@@ -53,7 +53,7 @@ if errorlevel 1 goto :erro
 
 echo.
 echo [4/4] Copiando arquivos de apoio para dist\...
-copy /y "FLUXO DE CAIXA_labtrans_13_07.xlsx" "dist\FLUXO DE CAIXA_labtrans_13_07.xlsx" >nul
+copy /y "FLUXO DE CAIXA_labtrans.xlsx" "dist\FLUXO DE CAIXA_labtrans.xlsx" >nul
 
 echo.
 echo ============================================
