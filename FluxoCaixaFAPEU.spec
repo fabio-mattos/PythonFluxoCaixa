@@ -1,7 +1,7 @@
 # -*- mode: python ; coding: utf-8 -*-
 from PyInstaller.utils.hooks import collect_all
 
-datas = [('.env', '.'), ('consulta.sql', '.')]
+datas = [('.env', '.'), ('consulta.sql', '.'), ('consulta_clt_rpa.sql', '.')]
 binaries = []
 hiddenimports = []
 tmp_ret = collect_all('customtkinter')

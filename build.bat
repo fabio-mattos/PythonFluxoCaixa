@@ -48,6 +48,7 @@ python -m PyInstaller ^
     --collect-all customtkinter ^
     --add-data ".env;." ^
     --add-data "consulta.sql;." ^
+    --add-data "consulta_clt_rpa.sql;." ^
     app.py
 if errorlevel 1 goto :erro
 
@@ -59,7 +60,7 @@ echo.
 echo ============================================
 echo   Build concluido!
 echo   Executavel: dist\%APP_NAME%.exe
-echo   (.env e consulta.sql ja estao embutidos no .exe;
+echo   (.env, consulta.sql e consulta_clt_rpa.sql ja estao embutidos no .exe;
 echo    mantenha apenas a planilha .xlsx ao lado dele)
 echo ============================================
 goto :fim

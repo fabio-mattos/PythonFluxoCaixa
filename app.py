@@ -10,7 +10,7 @@ import customtkinter as ctk
 from tkinter import messagebox
 
 from config import load_db_config
-from database import buscar_saldo_fapeu
+from database import buscar_saldo_clt_rpa, buscar_saldo_fapeu
 from excel_writer import AvisoPlanilha, atualizar_planilha
 
 BASE_DIR = Path(sys.executable).resolve().parent if getattr(sys, "frozen", False) else Path(__file__).resolve().parent
@@ -95,7 +95,8 @@ class App(ctk.CTk):
         try:
             config = load_db_config()
             linhas = buscar_saldo_fapeu(config)
-            atualizar_planilha(PLANILHA_PATH, linhas)
+            linhas_clt_rpa = buscar_saldo_clt_rpa(config)
+            atualizar_planilha(PLANILHA_PATH, linhas, linhas_clt_rpa)
             self._resultado.put(("sucesso", len(linhas)))
         except AvisoPlanilha as exc:
             self._resultado.put(("aviso", str(exc)))
